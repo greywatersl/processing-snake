@@ -3,8 +3,8 @@ import java.io.FileNotFoundException;
 import java.util.Formatter;
 import java.util.Scanner;
 
-public class death {
-    death(int score) {
+public class Death {
+    Death(int score) {
         // Death by metal
         System.out.println("Game over");
         System.out.println("Your Score: " + score);
@@ -32,6 +32,6 @@ public class death {
                 System.out.println("Error");
             }
         }
-        System.exit(0);
+        // System.exit(0);
     }
 }

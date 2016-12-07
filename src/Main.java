@@ -1,37 +1,47 @@
 import processing.core.PApplet;
+import processing.core.PFont;
 
-public class base extends PApplet {
-    private snake s;
-    private score c;
-    private int direction = 39;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Main extends PApplet {
+    private Snake s;
+    private Score c;
+    private int direction = 38;
+    private PFont font;
 
     public static void main(String[] args) {
-        PApplet.main("base");
+        PApplet.main("Main");
     }
 
     public void settings() {
-        size(220, 220);
+        size(220, 230);
     }
 
     public void setup(){
         frameRate(random(10,15));
         fill(255,12,12);
-        s = new snake(this);
-        c = new score(this);
+        s = new Snake(this);
+        c = new Score(this);
+        font = createFont("font/PressStart2P-Regular.ttf", 8, true);
     }
 
     public void draw(){
         // GENERAL
         background(5);
         playerMoved();
+        textFont(font);
+        text("Score: " + Score.score , 10, 14);
+        text("Highscore: " + getHighScore() , width - textWidth("Highscore: " + getHighScore()) - 10, 14);
 
         // BORDER
         stroke(255);
         fill(10);
-        rect(9,9,202,202);
+        rect(9,19,202,202);
 
         // SCORE
-        stroke(30);
+        stroke(50, 70);
         c.display();
 
         // SNAKE
@@ -39,12 +49,17 @@ public class base extends PApplet {
         s.checks();
         s.cleans();
 
+        // HORIZONTAL LINES
+        for (int i = 0; i < 230; i+=2) {
+            stroke(50, 50);
+            line(0, i, width, i);
+        }
+
         // DID SCORE?
         if (s.getX() == c.getX() && s.getY() == c.getY()) {
             c.setScore();
             c.move();
             s.setBody();
-            System.out.println(c.getScore());
         }
     }
 
@@ -103,5 +118,20 @@ public class base extends PApplet {
             s.setOldX();
             s.setOldY();
         }
+    }
+
+    private int getHighScore() {
+        int highscore = 0;
+
+        try {
+            File x = new File("highscore.txt");
+            Scanner sc = new Scanner(x);
+            while (sc.hasNext()) highscore = Integer.parseInt(sc.next());
+            sc.close();
+        } catch (FileNotFoundException e) {
+            new Death(Score.score);
+        }
+
+        return highscore;
     }
 }

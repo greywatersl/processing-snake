@@ -2,7 +2,7 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 
-public class snake {
+public class Snake {
     ArrayList<String> body = new ArrayList<>();
     ArrayList<Integer> oldX = new ArrayList<>();
     ArrayList<Integer> oldY = new ArrayList<>();
@@ -10,10 +10,10 @@ public class snake {
     float x, y;
     int r, g, b;
 
-    snake(PApplet p) {
+    Snake(PApplet p) {
         this.p = p;
-        x = 10;
-        y = 10;
+        x = 100;
+        y = 100;
         r = 0;
         g = 255;
         b = 0;
@@ -33,9 +33,10 @@ public class snake {
 
     void checks () {
         // DID SNAKE GO OUTSIDE BORDER?
-        if (y > 201 || x > 201 || y < 9 || x < 9) {
+        if (y > 211 || x > 201 || y < 19 || x < 9) {
+            p.noLoop();
             System.out.println("Out of bounds");
-            new death(score.score);
+            new Death(Score.score);
         }
 
         // DID SNAKE GO INTO BODY?
@@ -43,8 +44,9 @@ public class snake {
             int a = oldX.get((oldX.size() - 2) - i);
             int b = oldY.get((oldY.size() - 2) - i);
             if (a == x && b == y) {
+                p.noLoop();
                 System.out.println("Killed in Action");
-                new death(score.score);
+                new Death(Score.score);
             }
         }
     }

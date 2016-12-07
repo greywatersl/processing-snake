@@ -1,12 +1,12 @@
 import processing.core.PApplet;
 
-class score {
+class Score {
     static int score;
 
     private PApplet p;
     private int x, y;
 
-    score(PApplet p) {
+    Score(PApplet p) {
         this.p = p;
         score = 0;
         move();
@@ -20,7 +20,7 @@ class score {
 
     void move() {
         x = 10 + (10 * (int) (Math.random() * 18));
-        y = 10 + (10 * (int) (Math.random() * 18));
+        y = 20 + (10 * (int) (Math.random() * 18));
     }
 
     int getScore() {
