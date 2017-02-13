@@ -32,8 +32,8 @@ public class Main extends PApplet {
         background(5);
         playerMoved();
         textFont(font);
-        text("Score: " + Score.score , 10, 14);
-        text("Highscore: " + getHighScore() , width - textWidth("Highscore: " + getHighScore()) - 10, 14);
+        text("SCORE: " + Score.score , 10, 14);
+        text("HIGHSCORE: " + getHighScore() , width - textWidth("HIGHSCORE: " + getHighScore()) - 10, 14);
 
         // BORDER
         stroke(255);
@@ -126,7 +126,14 @@ public class Main extends PApplet {
         try {
             File x = new File("highscore.txt");
             Scanner sc = new Scanner(x);
-            while (sc.hasNext()) highscore = Integer.parseInt(sc.next());
+            while (sc.hasNext()) {
+                int high = Integer.parseInt(sc.next());
+                if (c.getScore() > high) {
+                    highscore = c.getScore();
+                } else {
+                    highscore = high;
+                }
+            }
             sc.close();
         } catch (FileNotFoundException e) {
             new Death(Score.score);
